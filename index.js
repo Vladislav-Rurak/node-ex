@@ -1,42 +1,27 @@
-const os = require('os')
-const fs = require('fs')
-const util = require('util')
+const http = require('http')
 
-// console.log('os.hostname(', os.hostname())
+const PORT = process.env.PORT || 5000
+const HOST = 'localhost'
 
-// console.log('os.cpus()', os.cpus())
+const httpServer = http.createServer((request, response) => {
+  const { url, method } = request
+  console.log('req', request)
+  console.log('url, method', url, method)
 
-// console.log('os.homedir()', os.homedir())
+  response.statusCode = 200
+  response.setHeader('Content-Type', 'text/html')
+  response.end(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Home</h1>
+</body>
+</html>`)
+})
 
-// const mathText = fs.readFileSync('./math.js', { encoding: 'utf-8' })
-
-// console.log('mathText', mathText)
-
-// fs.readFile('./math.js', { encoding: 'utf-8' }, (err, data) => {
-//   if (err) {
-//     console.log('err', err)
-//   } else {
-//     console.log('data', data)
-//   }
-// })
-
-const readFile = util.promisify(fs.readFile)
-
-// readFile('./math.js', { encoding: 'utf-8' })
-//   .then(data => console.log('data', data))
-//   .catch(err => console.log('err', err))
-
-const dirContaining = fs.readdirSync('.')
-// console.log('dirContaining', dirContaining)
-
-// dirContaining
-//   .filter(f => f.endsWith('.js'))
-//   .forEach(f =>
-//     readFile(f, { encoding: 'utf-8' })
-//       .then(data => console.log('data', data))
-//       .catch(err => console.log('err', err))
-//   )
-
-console.log('process.env', process.env)
-console.log('__filename', __filename)
-console.log('__dirname', __dirname)
+httpServer.listen(PORT, HOST, () => {
+  console.log(`Server instance is listening http://${HOST}:${PORT}`)
+})
