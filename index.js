@@ -1,14 +1,42 @@
-// Common js modules
+const os = require('os')
+const fs = require('fs')
+const util = require('util')
 
-// console.log('required()', require('./math.js'))
+// console.log('os.hostname(', os.hostname())
 
-// const sum1 = require('./math.js')
+// console.log('os.cpus()', os.cpus())
 
-// console.log('sum1(1,2,3,4,5,6', sum1(1, 2, 3, 4, 5, 6))
+// console.log('os.homedir()', os.homedir())
 
-//named
+// const mathText = fs.readFileSync('./math.js', { encoding: 'utf-8' })
 
-// const { sum } = require('./math')
-const Math = require('./math')
+// console.log('mathText', mathText)
 
-console.log('mult(3,4)', Math.mult(3, 4))
+// fs.readFile('./math.js', { encoding: 'utf-8' }, (err, data) => {
+//   if (err) {
+//     console.log('err', err)
+//   } else {
+//     console.log('data', data)
+//   }
+// })
+
+const readFile = util.promisify(fs.readFile)
+
+// readFile('./math.js', { encoding: 'utf-8' })
+//   .then(data => console.log('data', data))
+//   .catch(err => console.log('err', err))
+
+const dirContaining = fs.readdirSync('.')
+// console.log('dirContaining', dirContaining)
+
+// dirContaining
+//   .filter(f => f.endsWith('.js'))
+//   .forEach(f =>
+//     readFile(f, { encoding: 'utf-8' })
+//       .then(data => console.log('data', data))
+//       .catch(err => console.log('err', err))
+//   )
+
+console.log('process.env', process.env)
+console.log('__filename', __filename)
+console.log('__dirname', __dirname)
